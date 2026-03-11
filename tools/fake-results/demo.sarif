@@ -1,0 +1,20 @@
+{
+ "version":"2.1.0",
+ "runs":[
+  {
+   "tool":{
+    "driver":{
+     "name":"DemoScanner"
+    }
+   },
+   "results":[
+    {
+     "ruleId":"DEMO001",
+     "message":{
+      "text":"Demo secret found"
+     }
+    }
+   ]
+  }
+ ]
+}
