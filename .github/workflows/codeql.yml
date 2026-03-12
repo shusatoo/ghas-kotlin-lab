@@ -1,30 +1,66 @@
+# このワークフローの表示名。
+# GitHub Actions の画面で「CodeQL」という名前で表示される。
 name: CodeQL
 
+# このワークフローをどのイベントで起動するかを定義する。
 on:
   push:
+    # main ブランチへの push があったときだけ実行する。
+    # たとえば feature ブランチへの push だけでは、この設定では動かない。
     branches: [ "main" ]
 
+# 実行するジョブ一覧。
 jobs:
+  # ジョブID。任意の名前を付けられるが、ここでは analyze（解析）としている。
   analyze:
+    # GitHub が用意する Ubuntu 環境でジョブを動かす。
     runs-on: ubuntu-latest
 
+    # このジョブに与える権限を最小限に絞って定義する。
     permissions:
+      # CodeQL の解析結果を GitHub の Code scanning alerts に送信するために必要。
       security-events: write
+
+      # リポジトリのソースコードを読み取るために必要。
       contents: read
 
+    # ジョブの中で順番に実行する処理。
     steps:
 
+      # リポジトリの内容を runner にチェックアウトする。
+      # これをしないと、後続ステップでソースコードを参照できない。
       - uses: actions/checkout@v4
 
+      # Java 実行環境をセットアップする。
+      # Java / Kotlin プロジェクトのビルドや CodeQL 解析の前提になる。
       - uses: actions/setup-java@v4
         with:
+          # 利用する JDK ディストリビューション。
+          # temurin は Eclipse Temurin（よく使われる OpenJDK 系ディストリビューション）。
           distribution: temurin
+
+          # 使用する Java のバージョン。
+          # このプロジェクトは Java 17 前提でビルド・解析する想定。
           java-version: 17
 
+      # 共通ビルドスクリプトが gradle コマンドを使えるようにする。
+      - uses: gradle/actions/setup-gradle@v4
+
+      # CodeQL を初期化するステップ。
+      # ここで解析対象言語などを設定する。
       - uses: github/codeql-action/init@v3
         with:
+          # 解析対象の言語。
+          # Java と Kotlin を含むプロジェクト向け。
           languages: java-kotlin
 
-      - run: ./gradlew build
+      # プロジェクトを Gradle でビルドする。
+      # Java/Kotlin の CodeQL では、ビルドによって得られる情報
+      # （例：完全な型解決、依存ライブラリのクラスパス、アノテーションやフレームワークの意味解析、etc.）
+      # を使ってより正確に解析するため、このステップが重要。
+      # Dockerfileと共通のスクリプトを呼んでビルドする。ビルド手順の複数箇所分散を防止。
+      - run: ./scripts/build-app.sh
 
+      # CodeQL 解析を実行し、結果を GitHub にアップロードする。
+      # 実行後、結果は Security タブや Code scanning alerts で確認できる。
       - uses: github/codeql-action/analyze@v3
