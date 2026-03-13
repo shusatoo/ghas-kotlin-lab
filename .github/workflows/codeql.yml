@@ -1,5 +1,5 @@
 # このワークフローの表示名。
-# GitHub Actions の画面で「CodeQL」という名前で表示される。
+# GitHub Actions の画面で「CodeQL」という名前で表示。
 name: CodeQL
 
 # このワークフローをどのイベントで起動するかを定義する。
