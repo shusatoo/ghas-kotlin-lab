@@ -24,8 +24,8 @@ on:
     # schedule は GitHub Actions の仕様上、デフォルトブランチ
     # （このリポジトリでは main）の最新コミットを対象に実行される。
     # GitHub Actions の schedule に指定できるのは cron のみ。
-    # 毎日 20:00 UTC（JSTでは 5:00）に実行。
-    - cron: '0 20 * * *'
+    # 毎週月曜日 20:00 UTC（JSTでは火曜日 5:00）に実行。
+    - cron: '0 20 * * 1'
 
 jobs:
   analyze:
