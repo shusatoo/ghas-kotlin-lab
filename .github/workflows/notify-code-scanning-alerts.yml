@@ -6,6 +6,8 @@ on:
 
 jobs:
   notify:
+    permissions:
+      security-events: read
     uses: shusatoo/security-workflows/.github/workflows/notify-code-scanning-alerts.yml@v1
     secrets:
       slack_webhook_url: ${{ secrets.SLACK_NINJATOOLS_SHUSATOO_URL }}
