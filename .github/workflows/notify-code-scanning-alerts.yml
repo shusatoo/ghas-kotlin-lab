@@ -1,0 +1,11 @@
+name: Notify Code Scanning Alerts
+
+on:
+  # 手動実行専用
+  workflow_dispatch:
+
+jobs:
+  notify:
+    uses: shusatoo/security-workflows/.github/workflows/notify-code-scanning-alerts.yml@v1
+    secrets:
+      slack_webhook_url: ${{ secrets.SLACK_NINJATOOLS_SHUSATOO_URL }}
