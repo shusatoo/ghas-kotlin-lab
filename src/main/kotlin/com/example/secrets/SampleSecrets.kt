@@ -2,9 +2,10 @@ package com.example.secrets
 
 object SampleSecrets {
 
-    const val AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
-
-    const val AWS_SECRET_ACCESS_KEY =
-        "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    // ホスト部の `.example.com` を除去してpush試行すると Secret Scanningアラートが出る。
+    // GitHub側で定義されているパターンにマッチするため。（Slack webhook URLのパターン）
+    // See: https://docs.github.com/ja/code-security/reference/secret-security/supported-secret-scanning-patterns
+    const val SLACK_EXAMPLE_WEBHOOK_URL =
+        "https://hooks.slack.com.example.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 
 }
