@@ -21,3 +21,10 @@ $ docker compose up
 ```text
 http://localhost:49080
 ```
+
+## Secret Scanningのテスト
+
+Slackのテスト用トークンを使って、意図的にSecret Scanningアラートを発生させる。
+[SampleSecrets.kt](src/main/kotlin/com/example/secrets/SampleSecrets.kt)
+
+
