@@ -12,4 +12,6 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.springframework.boot:spring-boot-starter-web")
+    // Intentional vulnerable dependency for Dependabot alert testing.
+    implementation("commons-collections:commons-collections:3.2.1")
 }

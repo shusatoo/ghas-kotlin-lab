@@ -61,3 +61,9 @@ To https://github.com/shusatoo/ghas-kotlin-lab.git
 error: failed to push some refs to 'https://github.com/shusatoo/ghas-kotlin-lab.git'
 ```
 
+## Dependabot alerts のテスト
+
+既知の脆弱依存 `commons-collections:commons-collections:3.2.1` を
+`build.gradle.kts` に追加し、その利用例を以下に置いている。
+
+- [SampleVulnerableDependency.kt](src/main/kotlin/com/example/dependabot/SampleVulnerableDependency.kt)
